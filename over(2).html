@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>₹200 Redeem Code Gift</title>
+
+  <!-- Google Fonts: Poppins & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: radial-gradient(circle at top, #1e1b4b, #0f172a 70%);
+      color: #ffffff;
+      overflow: hidden;
+      padding: 20px;
+    }
+
+    button {
+      font-family: inherit;
+    }
+
+    .header-text {
+      text-align: center;
+      margin-bottom: 34px;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      z-index: 10;
+    }
+
+    .header-text h1 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: 0.4px;
+      background: linear-gradient(90deg, #fde047, #f97316, #fde047);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .header-text p {
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: #cbd5e1;
+      margin-top: 6px;
+    }
+
+    /* Small "Winner 5" text badge */
+    .Winner-badge {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 3px 12px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.4px;
+      color: #fde68a;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(253, 230, 138, 0.25);
+      border-radius: 999px;
+    }
+
+    /* Stage container: Close timing vs Open timing */
+    .stage {
+      position: relative;
+      transform: translateY(0);
+      transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.15s;
+      z-index: 10;
+    }
+
+    .stage.opened {
+      transform: translateY(115px);
+      transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.25s;
+    }
+
+    /* Envelope */
+    .envelope-wrapper {
+      position: relative;
+      width: 320px;
+      height: 210px;
+      cursor: pointer;
+      perspective: 1000px;
+      filter: drop-shadow(0 20px 35px rgba(0, 0, 0, 0.55));
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .stage.opened .envelope-wrapper {
+      cursor: default;
+    }
+
+    /* Back of the envelope */
+    .envelope-back {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(145deg, #991b1b, #7f1d1d);
+      border-radius: 10px;
+      border: 2px solid #f59e0b;
+      z-index: 1;
+    }
+
+    /* Letter inside the envelope */
+    .letter {
+      position: absolute;
+      left: 14px;
+      top: 10px;
+      width: 292px;
+      height: 192px;
+      background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+      border-radius: 10px;
+      border: 2px solid #e2e8f0;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      z-index: 2;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      color: #0f172a;
+      transform: translateY(0);
+      transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1) 0s,
+                  box-shadow 0.4s ease 0s;
+    }
+
+    .stage.opened .letter {
+      transform: translateY(-158px);
+      box-shadow: 0 18px 36px rgba(0, 0, 0, 0.35);
+      transition: transform 0.85s cubic-bezier(0.34, 1.45, 0.64, 1) 0.35s,
+                  box-shadow 0.5s ease 0.35s;
+    }
+
+    .letter-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      letter-spacing: 0.4px;
+      color: #1e293b;
+    }
+
+    .amount-badge {
+      background: linear-gradient(135deg, #dc2626, #991b1b);
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      box-shadow: 0 2px 8px rgba(220, 38, 38, 0.3);
+    }
+
+    /* Redeem Code Over Box */
+    .over-box {
+      width: 100%;
+      background: #fef2f2;
+      border: 1.5px dashed #ef4444;
+      border-radius: 10px;
+      padding: 16px 12px;
+      text-align: center;
+      color: #dc2626;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .over-title {
+      font-family: "JetBrains Mono", "Courier New", Courier, monospace;
+      font-weight: 700;
+      font-size: 1.02rem;
+      letter-spacing: 0.8px;
+      color: #b91c1c;
+    }
+
+    .letter-note {
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: #64748b;
+    }
+
+    /* Front pocket of the envelope */
+    .envelope-pocket {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .pocket-shape {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(160deg, #dc2626, #991b1b);
+      clip-path: polygon(0 0, 50% 55%, 100% 0, 100% 100%, 0 100%);
+      border-bottom: 3px solid #f59e0b;
+    }
+
+    .pocket-trim {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, rgba(253, 224, 71, 0.35), transparent 40%);
+      clip-path: polygon(0 0, 50% 55%, 100% 0, 100% 4%, 50% 59%, 0 4%);
+    }
+
+    .lifafa-label {
+      position: absolute;
+      bottom: 16px;
+      width: 100%;
+      text-align: center;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: #fde68a;
+      text-transform: uppercase;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Top Flap */
+    .envelope-flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 124px;
+      transform-origin: top center;
+      transform: rotateX(0deg);
+      z-index: 4;
+      pointer-events: none;
+      transition: transform 0.55s ease 0.55s, z-index 0s linear 0.72s;
+    }
+
+    .flap-shape {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, #ef4444, #b91c1c);
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      border-top: 2px solid #f59e0b;
+    }
+
+    .stage.opened .envelope-flap {
+      transform: rotateX(180deg);
+      z-index: 1;
+      transition: transform 0.55s ease 0.05s, z-index 0s linear 0.32s;
+    }
+
+    /* Gold Seal Button on Flap (Only "Open") */
+    .wax-seal {
+      position: absolute;
+      top: 102px;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #fef08a, #f59e0b 65%, #b45309);
+      border: 2px solid #fffbeb;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #78350f;
+      font-weight: 800;
+      font-size: 0.88rem;
+      letter-spacing: 0.4px;
+      opacity: 1;
+      animation: pulse 1.8s infinite;
+      transition: opacity 0.3s ease 0.95s;
+    }
+
+    .stage.opened .wax-seal {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease 0s;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+      }
+      50% {
+        transform: translate(-50%, -50%) scale(1.08);
+      }
+    }
+
+    /* Close button */
+    .controls {
+      margin-top: 135px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease 0s;
+      z-index: 10;
+    }
+
+    .controls.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transition: opacity 0.35s ease 0.85s;
+    }
+
+    .reset-btn {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #e2e8f0;
+      padding: 8px 22px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      backdrop-filter: blur(6px);
+      transition: background 0.2s ease;
+    }
+
+    .reset-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header-text" id="headerText">
+    <h1>🎁 Special ₹200 Gift</h1>
+    <p id="subText">Tap to Open</p>
+    <div class="Winner-badge">Winner 5</div>
+  </div>
+
+  <div class="stage" id="stage">
+    <div class="envelope-wrapper" id="envelope" role="button" aria-label="Open Gift">
+      <div class="envelope-back"></div>
+
+      <!-- Letter Inside -->
+      <div class="letter" id="letter" onclick="event.stopPropagation()">
+        <div class="letter-top">
+          <div class="brand">
+            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="#4285F4" d="M3.6 1.8c-.4.4-.6 1-.6 1.8v16.8c0 .8.2 1.4.6 1.8l.1.1 9.4-9.4v-.2L3.7 1.7l-.1.1z"/>
+              <path fill="#34A853" d="M16.2 15.1l-3.1-3.1v-.2l3.1-3.1.1.1 3.7 2.1c1.1.6 1.1 1.6 0 2.2l-3.7 2.1-.1-.1z"/>
+              <path fill="#FBBC05" d="M16.3 15l-3.2-3.2-9.5 9.5c.4.4 1 .4 1.7 0l11-6.3z"/>
+              <path fill="#EA4335" d="M16.3 8.8L5.3 2.5c-.7-.4-1.3-.4-1.7 0l9.5 9.5 3.2-3.2z"/>
+            </svg>
+            <span>REDEEM CODE</span>
+          </div>
+          <div class="amount-badge">₹200</div>
+        </div>
+
+        <div class="over-box">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="15" y1="9" x2="9" y2="15"></line>
+            <line x1="9" y1="9" x2="15" y2="15"></line>
+          </svg>
+          <div class="over-title">REDEEM CODE OVER</div>
+        </div>
+
+        <div class="letter-note">Already claimed • Better luck next time!</div>
+      </div>
+
+      <!-- Front Pocket -->
+      <div class="envelope-pocket">
+        <div class="pocket-shape"></div>
+        <div class="pocket-trim"></div>
+        <div class="lifafa-label">GOOGLE PLAY CODE</div>
+      </div>
+
+      <!-- Top Flap -->
+      <div class="envelope-flap">
+        <div class="flap-shape"></div>
+      </div>
+
+      <!-- Wax Seal (Only Open) -->
+      <div class="wax-seal">Open</div>
+    </div>
+  </div>
+
+  <div class="controls" id="controls">
+    <button class="reset-btn" id="resetBtn" type="button">Close</button>
+  </div>
+
+  <script>
+    const stage = document.getElementById("stage");
+    const envelope = document.getElementById("envelope");
+    const controls = document.getElementById("controls");
+    const subText = document.getElementById("subText");
+    const resetBtn = document.getElementById("resetBtn");
+
+    let isOpened = false;
+    let isAnimating = false;
+
+    envelope.addEventListener("click", () => {
+      if (isOpened || isAnimating) return;
+      isOpened = true;
+      isAnimating = true;
+
+      stage.classList.add("opened");
+      controls.classList.add("visible");
+      subText.textContent = "Sorry! Redeem code is over";
+
+      setTimeout(() => {
+        isAnimating = false;
+      }, 1150);
+    });
+
+    resetBtn.addEventListener("click", () => {
+      if (!isOpened || isAnimating) return;
+      isAnimating = true;
+
+      stage.classList.remove("opened");
+      controls.classList.remove("visible");
+      subText.textContent = "Tap to Open";
+
+      setTimeout(() => {
+        isOpened = false;
+        isAnimating = false;
+      }, 1200);
+    });
+  </script>
+</body>
+</html>
